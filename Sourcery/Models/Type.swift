@@ -38,6 +38,16 @@ class Type: NSObject, SourceryModel, Annotated {
     /// Variables defined in this type only, excluding those from parent or protocols
     var variables: [Variable]
 
+    /// Variables which are non optional in this type only, excluding those from parent or protocols
+    var optionalVariables: [Variable] {
+        return self.variables.filter { $0.isOptional }
+    }
+
+    /// Variables which are optional in this type only, excluding those from parent or protocols
+    var nonoptionalVariables: [Variable] {
+        return self.variables.filter { !$0.isOptional }
+    }
+
     /// All variables associated with this type, including those from parent or protocols
     /// sourcery: skipEquality, skipDescription
     var allVariables: [Variable] {
